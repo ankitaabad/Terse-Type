@@ -1,6 +1,6 @@
 {
   "name": "terse-type",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "description": "Shorthand to generate types and  validators",
   "main": "dist/index.js",
@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/ankitaabad/Terse-Type#readme",
   "devDependencies": {
-    "vitest": "^2.1.3"
+    "vitest": "^2.1.3",
+    "esbuild": "^0.24.0"
   },
   "dependencies": {
-    "esbuild": "^0.24.0"
   }
 }
