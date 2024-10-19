@@ -1,3 +1,4 @@
+import { arkConfig } from "./mappers/ark.js";
 import { typescriptConfig } from "./mappers/typescript.js";
 import { zodConfig } from "./mappers/zod.js";
 import { config } from "./type.js";
@@ -27,7 +28,13 @@ const splitOutsideBraces = (input) => {
 
   return parts;
 };
-export function parse(input: string, mapperConfig: config) {
+/**
+ * terse-type
+ * @param input  takes the terse string as input
+ * @param mapperConfig  zodConfig, arkConfig or typescriptConfig
+ * @returns 
+ */
+function terseType(input: string, mapperConfig: config) :string{
   if (input === "" || input === "[]") {
     return input;
   }
@@ -36,7 +43,7 @@ export function parse(input: string, mapperConfig: config) {
   input = input.trim();
 
   if (input.startsWith("{")) {
-    return `${mapper["{"]} ${parse(input.slice(1, -1), mapperConfig)} ${
+    return `${mapper["{"]} ${terseType(input.slice(1, -1), mapperConfig)} ${
       mapper["}"]
     }`;
   }
@@ -71,7 +78,7 @@ export function parse(input: string, mapperConfig: config) {
       enumType = onEnum(enumType.map((x) => x.toUpperCase()));
     }
     if (type?.includes("{")) {
-      result += `${key} ${joiner} ${parse(type, mapperConfig)}${appendWith},`;
+      result += `${key} ${joiner} ${terseType(type, mapperConfig)}${appendWith},`;
     } else {
       result += `${key} ${joiner} ${mapper[type ?? "s"]}${appendWith},`;
     }
@@ -80,11 +87,4 @@ export function parse(input: string, mapperConfig: config) {
   return result;
 }
 
-const inputs = ["{product:{id:n,name,price,inStock:b, storeName:so}}"];
-inputs.map((item) => {
-  console.table({
-    input: item,
-    type: parse(item, typescriptConfig),
-    zod: parse(item, zodConfig)
-  });
-});
+export { terseType, zodConfig, typescriptConfig, arkConfig };
