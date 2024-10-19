@@ -12,7 +12,7 @@
 Type:
 
 ```js
-{
+const x = {
  product: {
    id: number;
    name: string;
