@@ -12,7 +12,7 @@
 Type:
 
 ```js
-const x = {
+type x = {
  product: {
    id: number;
    name: string;
