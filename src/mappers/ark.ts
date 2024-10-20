@@ -1,14 +1,16 @@
-import { config, Mapper, onOptional } from "../type";
+import { config, Mapper, onOptional } from "../type.js";
 
 export const onOptionalArk: onOptional = (key) => {
   return {
     key: `${key}?`
   };
 };
+//todo: ark might not work with arrays
 export const arkMapper: Mapper = {
   "b": "'boolean'",
   "n": "'number'",
   "s": "'string'",
+  "a": "[]",
   "na": "'number[]'",
   "sa": "'string[]'",
   "ba": "'boolean[]'",

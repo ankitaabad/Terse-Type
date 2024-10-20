@@ -1,4 +1,4 @@
-import { config, Mapper, onOptional } from "../type";
+import { config, Mapper, onOptional } from "../type.js";
 
 export const onOptionalType: onOptional = () => {
   return {
@@ -14,16 +14,16 @@ export const typeMapper: Mapper = {
   "na": "number[]",
   "sa": "string[]",
   "ba": "boolean[]",
+  "[]": "[]",
   "": "string",
   "{": "{",
   "}": "}"
 };
-
 export const typescriptConfig: config = {
   mapper: typeMapper,
   onEnum: (enumStrings) => {
     return enumStrings.map((x) => `'${x}'`).join("|");
   },
-  onOptional: onOptionalType
+  onOptional: onOptionalType,
+  name: "typescript"
 };
-

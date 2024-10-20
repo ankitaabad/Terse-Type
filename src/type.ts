@@ -2,7 +2,7 @@ export type Mapper = {
   "b": string;
   "n": string;
   "s": string;
-  "a": string
+  "a": string;
   "na": string;
   "sa": string;
   "ba": string;
@@ -11,6 +11,7 @@ export type Mapper = {
   "}": string;
   "[]"?: string;
 };
+//todo: do we really need "" in mapper?
 
 export type onEnum = (enumStrings: string[]) => string;
 export type onOptional = (key: string) => {
@@ -18,5 +19,9 @@ export type onOptional = (key: string) => {
   joiner?: string;
   appendWith?: string;
 };
-export type config = { mapper: Mapper; onEnum: onEnum; onOptional: onOptional };
-
+export type config = {
+  mapper: Mapper;
+  onEnum: onEnum;
+  onOptional: onOptional;
+  name?: string;
+};

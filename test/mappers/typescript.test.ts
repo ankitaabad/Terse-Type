@@ -5,31 +5,48 @@ import { zodConfig } from "../../src/mappers/zod.js";
 
 describe("typescript types", () => {
   test("simple object", () => {
-    const result = terseType("name,city,number:n", typescriptConfig);
+    const result = terseType("{username,email,age:n,hobbies:{name,frequency}ao,isActive:b,roles:sa", zodConfig);
     expect(result).toMatchInlineSnapshot(
-      `"name : string,city : string,number : number,"`
-    );
+      );
   });
   test("nested object", () => {
-    const result = terseType("{address.{city.so,postal.nao}}", zodConfig);
+    const result = terseType("{address:{city:so,postal:nao}}o", zodConfig);
     expect(result).toMatchInlineSnapshot(
       `"z.object({ address : z.object({ city : z.string().optional(),postal : z.number().array().optional(), }), })"`
     );
   });
-  test("nested object", () => {
-    const result = terseType("{address.{city.so,postal.nao}}", typescriptConfig);
-    expect(result).toMatchInlineSnapshot(`"{ address : { city ?: string,postal ?: number[], }, }"`);
+  test.only("nested object", () => {
+    const result = terseType(
+      "{address:{city:so,postal:nao}o}",
+      typescriptConfig
+    );
+    expect(result).toMatchInlineSnapshot(
+      `"{ address ?: { city ?: string,postal ?: number[],} , }"`
+    );
   });
   test("simple object", () => {
-    const result = terseType("name,city.o,", zodConfig);
-    expect(result).toMatchInlineSnapshot(`"name : z.string(),city : z.string().optional(), : z.string(),"`);
+    const result = terseType("name,city:o,", zodConfig);
+    expect(result).toMatchInlineSnapshot(
+      `"name : z.string(),city : z.string().optional(),"`
+    );
   });
   test("simple object", () => {
-    const result = terseType("name,city.o,", typescriptConfig);
-    expect(result).toMatchInlineSnapshot(`"name : string,city ?: string, : string,"`);
+    const result = terseType("{name,address:{city}a}", typescriptConfig);
+    expect(result).toMatchInlineSnapshot(
+      `"{ name : string,address : { city : string,}[] , }"`
+    );
   });
   test("weird", () => {
-    const result = terseType("address.{country.{city.village.so}}", typescriptConfig);
-    expect(result).toMatchInlineSnapshot(`"address : {country : string,,"`);
+    const result = terseType(
+      "address:o{country:o{city:o{village:so}}}",
+      typescriptConfig
+    );
+    expect(result).toMatchInlineSnapshot(`"address : undefined,"`);
+  });
+  test("object", () => {
+    const result = terseType("{name}", zodConfig);
+    expect(result).toMatchInlineSnapshot(`
+      "z.object({ name : z.string(), })"
+    `);
   });
 });

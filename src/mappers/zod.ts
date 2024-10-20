@@ -9,7 +9,7 @@ export const zodMapper: Mapper = {
   "ba": "z.boolean().array()",
   "{": "z.object({",
   "}": "})",
-  // "[]": ".array()",
+  "[]": ".array()",
   "": "z.string()"
 };
 
@@ -22,7 +22,7 @@ export const onOptionalZod: onOptional = () => {
 export const zodConfig: config = {
   mapper: zodMapper,
   onEnum: (enumStrings: string[]) => {
-    return enumStrings.join("");
+    return "z.enum([" + enumStrings.map((x) => `"${x}"`).join(",") + "])";
   },
   onOptional: onOptionalZod
 };
