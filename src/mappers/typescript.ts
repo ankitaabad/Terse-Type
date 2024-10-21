@@ -22,7 +22,7 @@ export const typeMapper: Mapper = {
 export const typescriptConfig: config = {
   mapper: typeMapper,
   onEnum: (enumStrings) => {
-    return enumStrings.map((x) => `'${x}'`).join("|");
+    return enumStrings.map((x) => `"${x}"`).join("|");
   },
   onOptional: onOptionalType,
   name: "typescript"
